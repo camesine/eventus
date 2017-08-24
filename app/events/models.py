@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.template.defaultfilters import slugify
 
-# Create your models here.
+from django.conf import settings
 
 class TimeStampModel(models.Model):
     
@@ -43,7 +43,7 @@ class Event(TimeStampModel):
     is_free = models.BooleanField(default=True)
     amount = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
     views = models.IntegerField(blank=True, null=True, default=0)
-    organizer = models.ForeignKey(User, blank=True, null=True, related_name='organizer')
+    organizer = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name='organizer')
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -56,7 +56,7 @@ class Event(TimeStampModel):
 
 class Assistant (TimeStampModel):
 
-    assistant = models.ForeignKey(User)
+    assistant = models.ForeignKey(settings.AUTH_USER_MODEL)
     event = models.ManyToManyField(Event)
 
     attended = models.BooleanField(default=False)
@@ -68,7 +68,7 @@ class Assistant (TimeStampModel):
 
 class Comments(TimeStampModel):
 
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     event = models.ForeignKey(Event)
 
     content = models.TextField()
