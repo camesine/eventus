@@ -10,7 +10,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
-    'app.users'
+    'app.users',
     'app.events',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -55,7 +55,7 @@ WSGI_APPLICATION = 'eventus.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'eventus',
+        'NAME': 'eventusdb',
         'USER': 'root',
         'PASSWORD': '',
         'PORT': 3306,
