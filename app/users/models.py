@@ -5,21 +5,19 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 
 class UserManager(BaseUserManager, models.Manager):
     
-    def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
-
+    def _create_user(self, username, email, password, is_staff, is_superuser, **extra_fields):
+                
         email = self.normalize_email(email)
-
         if not email:
-            raise ValueError('El email es obligatorio')
-        user = self.model(username = username, email = email, is_active = True,
-                            is_staff = is_staff, is_superuser = is_superuser, **extra_fields)
+            raise ValueError('El email debe ser obligatorio')
+        user = self.model(username=username, email=email, is_active=True, is_staff=is_staff, is_superuser=is_superuser, **extra_fields)
         user.set_password(password)
         user.save(using = self._db)
-
+        
         return user
 
     def create_user(self, username, email, password=None, **extra_fields):
-        return self._create_user(username, email, password, False, False, **extra_fields)
+        return self._create_user(username, email, password, False, False,  **extra_fields)
 
     def create_superuser(self, username, email, password=None, **extra_fields):
         return self._create_user(username, email, password, True, True, **extra_fields)
@@ -38,7 +36,7 @@ class User (AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRE_FIELDS = ['email']
-
+    REQUIRED_FIELDS = ['email']
+    
     def get_short_name(self):
         return self.username
