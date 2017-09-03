@@ -8,7 +8,8 @@ def index(request):
     categories = Category.objects.all()
     print events
     print categories
-    return render(request, 'index.html', {
+
+    return render(request, 'events/index.html', {
         'events': events,
         'categories': categories
     })
