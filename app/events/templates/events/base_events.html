@@ -1,1 +1,11 @@
 {% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+{% endblock css %}
+
+{% block js %}
+    <script src="{% static 'js/bootstrap.min.js' %}" ></script>
+{% endblock js %}
